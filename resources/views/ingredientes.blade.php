@@ -10,21 +10,31 @@
 </head>
 <body>
     <header>
-      <h1>Cozinhando com o que tem 🍲</h1>
+         <h1>Gerador de Receitas 🍲</h1>
+         <nav>
+        <a href="/">Voltar</a>
+         </nav>
     </header>
+    <h2>Cozinhando com o que tem </h2>
     <main>
-        <h2>Gerador de Receitas</h2>
+
         <p>Encontre a receita perfeita usando o que está na sua geladeira.
              Use a inteligência artificial e nunca mais jogue comida fora!</p>
-
+             <label>Digite os ingredientes</label>
              <article>
-                <label>Digite os ingredientes? </label>
+
                 <form method="POST" action="{{route('ingredientesAcao')}}">
                       @csrf
-                <input type="text" name="ingredientes" />
-                <button type="submit">Pesquise a receita</button>
+                <input type="text" name="ingredientes" value="{{$ingredientes ?? ''}}"/>
+                <input type="submit" value="Pesquise a receita" />
                 </form>
          </article>
+         @if (!empty($receita))
+
+                <h3>Receita</h3>
+                {!!preg_replace("/\r\n|\n/", '<br>',$receita)!!}
+
+            @endif
     </main>
 </body>
 <footer>

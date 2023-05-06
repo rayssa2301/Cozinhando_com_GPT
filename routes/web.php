@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('', [HomeController::class, 'index']);
+
+Route::get('/ingredientes', [HomeController::class, 'ingredientes']);
 
 Route::post('/ingredientes', [HomeController::class, 'ingredientesAcao'])->name('ingredientesAcao');

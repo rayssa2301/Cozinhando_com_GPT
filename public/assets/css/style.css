@@ -1,20 +1,11 @@
 article,
-article {
+article > form {
+    flex: 1;
+    gap: 20px;
     display: flex;
-    gap: 10px;
-    flex-direction: column;
 }
-article input {
-    width: 50%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px 0;
-    margin-bottom: 10px;
-    background-bottom: #ccc;
-}
-my-button {
-    width: 100%;
-    margin: 10px 0;
-    margin-bottom: 10px;
+article > input > form[type="text"] {
+    flex: 1;
+    gap: 50px;
+    display: flex;
 }

@@ -9,9 +9,13 @@ use GuzzleHttp\Client;
 
 class HomeController extends Controller
 {
-    public function index(Request $r): View
+    public function index(): View
     {
-        return view('welcome');
+        return view('home');
+    }
+    public function ingredientes(Request $r): View
+    {
+        return view('ingredientes');
     }
 
     public function ingredientesAcao(Request $r): View
@@ -28,14 +32,21 @@ class HomeController extends Controller
         $response = $client->post('completions', [
             'json' => [
                 'model' => 'text-davinci-003',
-                'prompt' => 'Gere uma receita incrível com os seguintes ingredientes: ' . $r->ingredientes,
+                'prompt' => 'Gere uma receita incrível SOMENTE com os seguintes ingredientes: ' . $r->ingredientes . 'Não inclua ingredientes extras! Se não conseguir gerar uma receita, responda com "Não foi possível gerar uma receita com esses ingredientes".',
                 'temperature' => 0.5,
                 'max_tokens' => 500
             ]
         ]);
         if ($response->getStatusCode() == 200) {
             $data = json_decode($response->getBody(), true);
+            $viewData['receita'] = $data['choices'][0]['text'];
+            $viewData['ingredientes'] = $r->ingredientes;
+
+            return view('ingredientes', $viewData);
+        } else {
+            $data['error'] = 'Erro ao gerar receita';
         }
-        dd($data);
+
+        return view('receita', $data);
     }
 }
